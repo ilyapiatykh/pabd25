@@ -1,2 +1,3 @@
 pandas
-cian_parser
+cianparser
+pydantic
