@@ -19,22 +19,24 @@ class Apartment(BaseModel):
         return value
 
 
-
 app = Flask(__name__)
+logging.basicConfig(level=logging.DEBUG)
 
-# Маршрут для отображения формы
+
 @app.route('/')
 def index():
     return render_template('index.html')
 
-# Маршрут для обработки данных формы
+
 @app.route('/api/numbers', methods=['POST'])
 def process_numbers():
     try:
-        json_ = request.json
-        apartment = Apartment.model_validate(json_)
+        data = request.json
+        apartment = Apartment.model_validate(data)
+        logging.debug("numbers are valid")
         return jsonify({"message": "Данные валидны", "data": apartment.model_dump()})
     except ValidationError as e:
+        logging.debug("numbers are invalid")
         return e.json(), 422, {'Content-Type': 'application/json'}
 
 if __name__ == '__main__':
