@@ -2,3 +2,10 @@ pandas
 cianparser
 pydantic
 flask
+numpy
+scikit-learn
+ipykernel
+joblib
+fastapi
+loguru
+dvc
