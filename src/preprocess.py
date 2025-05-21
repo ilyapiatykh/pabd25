@@ -5,8 +5,8 @@ import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
 
-RAW_DATA_PATH = "../data/raw"
-PROCESSED_DATA_PATH = "../data/processed"
+RAW_DATA_PATH = "data/raw"
+PROCESSED_DATA_PATH = "data/processed"
 
 def concat_data() -> pd.DataFrame:
     files = os.listdir(RAW_DATA_PATH)[:3]

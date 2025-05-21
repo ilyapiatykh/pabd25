@@ -6,8 +6,8 @@ import numpy as np
 import pandas as pd
 from sklearn.metrics import mean_absolute_error, mean_squared_error, r2_score
 
-PROCESSED_DATA_PATH = "../data/processed"
-MODEL_PATH = '../models/model.pkl'
+PROCESSED_DATA_PATH = "data/processed"
+MODEL_PATH = 'models/model.pkl'
 METRICS_FILE = 'metrics.json'
 
 # def get_feature_coefficients(model, feature_names):

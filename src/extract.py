@@ -3,7 +3,7 @@ import datetime
 import cianparser
 import pandas as pd
 
-CSV_PATH = "../data/raw/dataset_{n_rooms}_{time}.csv"
+CSV_PATH = "data/raw/dataset_{n_rooms}_{time}.csv"
 PAGE_COUNT = 10
 
 
@@ -14,7 +14,7 @@ class Parser:
 
     def parse_cian(self, n_rooms: int):
         t = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
-        csv_path = CSV_PATH.format(n_rooms, t)
+        csv_path = CSV_PATH.format(n_rooms=n_rooms, time=t)
 
         data = self.parser.get_flats(
             deal_type="sale",

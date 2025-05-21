@@ -2,8 +2,8 @@ import joblib
 import pandas as pd
 from sklearn.linear_model import LinearRegression
 
-PROCESSED_DATA_PATH = "../data/processed"
-MODEL_PATH = '../models/model.pkl'
+PROCESSED_DATA_PATH = "data/processed"
+MODEL_PATH = 'models/model.pkl'
 
 def load_data():
     train = pd.read_csv(f"{PROCESSED_DATA_PATH}/train.csv")
