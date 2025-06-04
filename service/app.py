@@ -1,4 +1,5 @@
 import joblib
+import pandas as pd
 from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.templating import Jinja2Templates
@@ -7,18 +8,30 @@ from pydantic import BaseModel, ValidationError, field_validator
 
 
 class Apartment(BaseModel):
-    area: int
-    num_rooms: int
-    total_floors: int
+    total_meters: int
+    rooms_count: int
+    floors_count: int
     floor: int
 
-    @field_validator('area', 'num_rooms', 'total_floors', 'floor', mode='after')
+    @field_validator("total_meters", "rooms_count", "floors_count", "floor", mode="after")
     @classmethod
     def is_positive(cls, value: int):
         if value < 1:
             raise ValueError("Must be more than 0")
 
         return value
+
+    def to_df(self):
+        return pd.DataFrame(
+            [
+                {
+                    "total_meters": self.total_meters,
+                    "rooms_count": self.rooms_count,
+                    "floors_count": self.floors_count,
+                    "floor": self.floor,
+                }
+            ]
+        )
 
 
 app = FastAPI()
@@ -44,6 +57,6 @@ async def process_numbers(request: Request):
         logger.warning("Failed to validate input data")
         return JSONResponse(content=e.errors(), status_code=422)
 
-    pred = model.predict([[apartment.area, apartment.num_rooms, apartment.total_floors, apartment.floor]])
+    pred = model.predict(apartment.to_df())
 
-    return JSONResponse(content={"price": pred[0]}, status_code=200)
+    return JSONResponse(content={"price": int(pred[0][0])}, status_code=200)

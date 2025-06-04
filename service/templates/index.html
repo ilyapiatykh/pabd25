@@ -56,9 +56,9 @@
     <div class="form-container">
         <h2>Введите данные по квартире</h2>
         <form id="numberForm" onsubmit="submitForm(event)">
-            <input type="number" id="area" placeholder="Площадь" required min="1">
-            <input type="number" id="num_rooms" placeholder="Кол-во комнат" required min="1">
-            <input type="number" id="total_floors" placeholder="Всего этажей в доме" required min="1">
+            <input type="number" id="total_meters" placeholder="Площадь" required min="1">
+            <input type="number" id="rooms_count" placeholder="Кол-во комнат" required min="1">
+            <input type="number" id="floors_count" placeholder="Всего этажей в доме" required min="1">
             <input type="number" id="floor" placeholder="Этаж квартиры" required min="1">
             <button type="submit">Отправить</button>
         </form>
@@ -68,12 +68,12 @@
     <script>
         function submitForm(event) {
             event.preventDefault();
-            const area = document.getElementById('area').value
-            const num_rooms = document.getElementById('num_rooms').value
-            const total_floors = document.getElementById('total_floors').value
+            const total_meters = document.getElementById('total_meters').value
+            const rooms_count = document.getElementById('rooms_count').value
+            const floors_count = document.getElementById('floors_count').value
             const floor = document.getElementById('floor').value
 
-            const data = { area, num_rooms, total_floors, floor };
+            const data = { total_meters, rooms_count, floors_count, floor };
 
             fetch('/api/numbers', {
                 method: 'POST',
@@ -84,7 +84,8 @@
                     const json = await response.json();
                     const respDiv = document.getElementById('response');
                     if (response.ok) {
-                        respDiv.innerHTML = `<span class="success">Предсказанная цена: <b>${json.price}</b></span>`;
+                        const formatted = Number(json.price).toLocaleString('ru-RU');
+                        respDiv.innerHTML = `<span class="success">Предсказанная цена: <b>${formatted}</b></span>`;
                     } else if (response.status === 422) {
                         let msg = "Ошибка валидации:<br>";
                         json.forEach(err => {
