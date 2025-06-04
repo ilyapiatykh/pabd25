@@ -6,6 +6,7 @@ from sklearn.model_selection import train_test_split
 RAW_DATA_PATH = "data/raw"
 PROCESSED_DATA_PATH = "data/processed"
 
+
 def concat_data() -> pd.DataFrame:
     """
     Concatenates multiple CSV files from the raw data directory into a single DataFrame.
@@ -21,6 +22,7 @@ def concat_data() -> pd.DataFrame:
     df = pd.concat(dfs, ignore_index=True)
 
     return df
+
 
 def remove_outliers_iqr(df: pd.DataFrame, column: str, threshold: float = 1.5):
     """
@@ -41,6 +43,7 @@ def remove_outliers_iqr(df: pd.DataFrame, column: str, threshold: float = 1.5):
 
     return filtered_df.reset_index(drop=True)
 
+
 def transform_data(df: pd.DataFrame):
     """
     Transforms the DataFrame by cleaning and removing unnecessary columns,
@@ -48,20 +51,20 @@ def transform_data(df: pd.DataFrame):
     """
 
     labels_to_drop = [
-        'location',
-        'deal_type',
-        'accommodation_type',
-        'price_per_month',
-        'commissions',
-        'url',
-        'author',
-        'author_type',
-        'residential_complex',
+        "location",
+        "deal_type",
+        "accommodation_type",
+        "price_per_month",
+        "commissions",
+        "url",
+        "author",
+        "author_type",
+        "residential_complex",
     ]
 
     df.drop(labels_to_drop, axis=1, inplace=True)
 
-    cols = ["floor",	"floors_count",	"total_meters"]
+    cols = ["floor", "floors_count", "total_meters"]
 
     for col in cols:
         remove_outliers_iqr(df, col)
@@ -72,8 +75,8 @@ def split_data(df: pd.DataFrame):
     Splits the DataFrame into training and testing sets.
     """
 
-    features = ['total_meters', "rooms_count", "floors_count", "floor"]
-    target = 'price'
+    features = ["total_meters", "rooms_count", "floors_count", "floor"]
+    target = "price"
 
     X = df[features]
     y = df[target]
@@ -87,6 +90,7 @@ def split_data(df: pd.DataFrame):
 
     return train, test
 
+
 def main():
     df = concat_data()
     transform_data(df)
@@ -96,5 +100,6 @@ def main():
     train.to_csv(f"{PROCESSED_DATA_PATH}/train.csv")
     test.to_csv(f"{PROCESSED_DATA_PATH}/test.csv")
 
-if __name__ == '__main__':
+
+if __name__ == "__main__":
     main()

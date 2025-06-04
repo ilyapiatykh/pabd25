@@ -5,6 +5,7 @@ import pandas as pd
 
 CSV_PATH = "data/raw/dataset_{n_rooms}_{time}.csv"
 PAGE_COUNT = 10
+ROOMS_COUNT = 3
 
 
 class Parser:
@@ -27,24 +28,20 @@ class Parser:
             deal_type="sale",
             rooms=(n_rooms,),
             with_saving_csv=False,
-            additional_settings={
-                "start_page": 1,
-                "end_page": PAGE_COUNT,
-                "object_type": "secondary"
-            })
+            additional_settings={"start_page": 1, "end_page": PAGE_COUNT, "object_type": "secondary"},
+        )
 
         df = pd.DataFrame(data)
 
-        df.to_csv(csv_path,
-                encoding='utf-8',
-                index=False)
+        df.to_csv(csv_path, encoding="utf-8", index=False)
+
 
 def main():
     parser = Parser()
 
-    for n_rooms in range(1,4):
+    for n_rooms in range(1, ROOMS_COUNT + 1):
         parser.parse_cian(n_rooms)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
