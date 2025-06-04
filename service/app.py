@@ -59,4 +59,4 @@ async def process_numbers(request: Request):
 
     pred = model.predict(apartment.to_df())
 
-    return JSONResponse(content={"price": int(pred[0][0])}, status_code=200)
+    return JSONResponse(content={"price": int(pred[0])}, status_code=200)

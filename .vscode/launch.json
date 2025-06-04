@@ -18,8 +18,7 @@
             "module": "uvicorn",
             "cwd": "${workspaceFolder}/service",
             "args": [
-                "app:app",
-                "--reload"
+                "app:app"
             ],
             "jinja": true
         },

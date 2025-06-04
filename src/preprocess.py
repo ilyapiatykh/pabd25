@@ -12,7 +12,7 @@ def concat_data() -> pd.DataFrame:
     Concatenates multiple CSV files from the raw data directory into a single DataFrame.
     """
 
-    files = os.listdir(RAW_DATA_PATH)[:3]
+    files = os.listdir(RAW_DATA_PATH)
 
     dfs = []
     for file in files:
