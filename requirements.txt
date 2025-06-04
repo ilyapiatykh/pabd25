@@ -1,7 +1,6 @@
 pandas
 cianparser
 pydantic
-flask
 numpy
 scikit-learn
 ipykernel

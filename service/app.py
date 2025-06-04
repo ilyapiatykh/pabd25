@@ -1,6 +1,8 @@
-import logging
-
-from flask import Flask, jsonify, render_template, request
+import joblib
+from fastapi import FastAPI, Request
+from fastapi.responses import HTMLResponse, JSONResponse
+from fastapi.templating import Jinja2Templates
+from loguru import logger
 from pydantic import BaseModel, ValidationError, field_validator
 
 
@@ -19,25 +21,29 @@ class Apartment(BaseModel):
         return value
 
 
-app = Flask(__name__)
-logging.basicConfig(level=logging.DEBUG)
+app = FastAPI()
+
+templates = Jinja2Templates(directory="templates")
+
+model = joblib.load("../models/model.pkl")
 
 
-@app.route('/')
-def index():
-    return render_template('index.html')
+@app.get("/", response_class=HTMLResponse)
+async def index(request: Request):
+    return templates.TemplateResponse("index.html", {"request": request})
 
 
-@app.route('/api/numbers', methods=['POST'])
-def process_numbers():
+@app.post("/api/numbers")
+@logger.catch(Exception, message="Failed to predict apartment price")
+async def process_numbers(request: Request):
+    data = await request.json()
+
     try:
-        data = request.json
         apartment = Apartment.model_validate(data)
-        logging.debug("numbers are valid")
-        return jsonify({"message": "Данные валидны", "data": apartment.model_dump()})
     except ValidationError as e:
-        logging.debug("numbers are invalid")
-        return e.json(), 422, {'Content-Type': 'application/json'}
+        logger.warning("Failed to validate input data")
+        return JSONResponse(content=e.errors(), status_code=422)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+    pred = model.predict([[apartment.area, apartment.num_rooms, apartment.total_floors, apartment.floor]])
+
+    return JSONResponse(content={"price": pred[0]}, status_code=200)

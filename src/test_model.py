@@ -1,4 +1,3 @@
-#pyright: reportCallIssue=false, reportArgumentType=false
 import json
 
 import joblib
@@ -19,6 +18,7 @@ METRICS_FILE = 'metrics.json'
 
 #     return coefficients
 
+# TODO add type hints
 def evaluate_model(y_true, y_pred):
     mae = mean_absolute_error(y_true, y_pred)
     mse = mean_squared_error(y_true, y_pred)
@@ -26,10 +26,10 @@ def evaluate_model(y_true, y_pred):
     r2 = r2_score(y_true, y_pred)
 
     metrics = {
-        'MAE': round(mae, 4),
-        'MSE': round(mse, 4),
-        'RMSE': round(rmse, 4),
-        'R²': round(r2, 4),
+        'MAE': mae,
+        'MSE': mse,
+        'RMSE': rmse,
+        'R²': r2,
     }
 
     return metrics

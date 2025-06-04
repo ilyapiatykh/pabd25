@@ -8,11 +8,18 @@ PAGE_COUNT = 10
 
 
 class Parser:
+    """
+    A class to parse real estate listings from Cian for a specified number of rooms.
+    """
 
     def __init__(self) -> None:
         self.parser = cianparser.CianParser(location="Москва")
 
     def parse_cian(self, n_rooms: int):
+        """
+        Parses Cian for listings with a specified number of rooms and saves the results to a CSV file.
+        """
+
         t = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M")
         csv_path = CSV_PATH.format(n_rooms=n_rooms, time=t)
 

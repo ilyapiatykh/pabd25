@@ -5,7 +5,26 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Debug Service",
+            "name": "Current",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Fastapi",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "uvicorn",
+            "cwd": "${workspaceFolder}/service",
+            "args": [
+                "app:app",
+                "--reload"
+            ],
+            "jinja": true
+        },
+        {
+            "name": "Flask",
             "type": "debugpy",
             "request": "launch",
             "module": "flask",

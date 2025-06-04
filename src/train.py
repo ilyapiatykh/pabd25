@@ -6,9 +6,17 @@ PROCESSED_DATA_PATH = "data/processed"
 MODEL_PATH = 'models/model.pkl'
 
 def load_data():
+    """
+    Loads the training data from the processed data path.
+    """
+
     train = pd.read_csv(f"{PROCESSED_DATA_PATH}/train.csv")
 
 def create_and_train_model(train: pd.DataFrame):
+    """
+    Creates and trains a linear regression model using the provided training data.
+    """
+
     X_cols = ['total_meters', "rooms_count", "floors_count", "floor"]
     y_col = ["price"]
     model = LinearRegression()
