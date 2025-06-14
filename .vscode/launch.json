@@ -15,8 +15,8 @@
             "name": "Fastapi",
             "type": "debugpy",
             "request": "launch",
-            "cwd": "${workspaceFolder}/service",
-            "program": "${workspaceFolder}/service/app.py",
+            "cwd": "${workspaceFolder}/app",
+            "program": "${workspaceFolder}/app/main.py",
             "console": "integratedTerminal",
             "env": {
                 "PYTHONPATH": "${workspaceFolder}",
