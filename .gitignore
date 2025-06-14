@@ -1,6 +1,7 @@
 data
 /venv
 .DS_Store
-service/__pycache__
+app/__pycache__
 /metrics.json
 /models
+.env

@@ -1,0 +1,10 @@
+pydantic
+pydantic_settings
+pandas
+joblib
+fastapi
+loguru
+boto3
+uvicorn
+jinja2
+scikit-learn

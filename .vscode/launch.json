@@ -15,12 +15,13 @@
             "name": "Fastapi",
             "type": "debugpy",
             "request": "launch",
-            "module": "uvicorn",
             "cwd": "${workspaceFolder}/service",
-            "args": [
-                "app:app"
-            ],
-            "jinja": true
+            "program": "${workspaceFolder}/service/app.py",
+            "console": "integratedTerminal",
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}",
+                "PYTHONDONTWRITEBYTECODE": "0"
+            },
         },
         {
             "name": "Flask",

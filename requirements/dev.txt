@@ -1,10 +1,11 @@
 pandas
 cianparser
 pydantic
-numpy
 scikit-learn
 ipykernel
 joblib
 fastapi
 loguru
 dvc
+pydantic_settings
+boto3
